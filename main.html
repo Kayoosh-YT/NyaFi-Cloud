@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NyaFi Cloud - Главная</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>NyaFi Cloud</h1>
+        <p>Привет, <span id="userGmail">загрузка...</span>!</p>
+        <p>Твой баланс: <span id="userBalance">0</span> $NYA</p>
+        <button onclick="goToEarn()">Заработать $NYA</button>
+    </div>
+
+    <!-- Подключение Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script>
+        // Конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDMu6u7yFPgzN2RktCRP6hPy3nJen5OdJM",
+            authDomain: "nyafi-cloud.firebaseapp.com",
+            databaseURL: "https://nyafi-cloud-default-rtdb.firebaseio.com",
+            projectId: "nyafi-cloud",
+            storageBucket: "nyafi-cloud.firebasestorage.app",
+            messagingSenderId: "323199817977",
+            appId: "1:323199817977:web:1917ee3663cf5dd457aa28",
+            measurementId: "G-EQYPQ2QHMB"
+        };
+
+        // Инициализация Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Получаем Gmail из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const gmail = urlParams.get("user");
+        const gmailKey = gmail.replace(/\./g, "_");
+
+        // Отображаем Gmail пользователя
+        document.getElementById("userGmail").innerText = gmail;
+
+        // Получаем и обновляем баланс
+        database.ref("users/" + gmailKey).on("value", (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                document.getElementById("userBalance").innerText = data.balance || 0;
+            } else {
+                document.getElementById("userBalance").innerText = "Ошибка загрузки";
+            }
+        });
+
+        // Функция перехода на earn.html
+        function goToEarn() {
+            window.location.href = "earn.html?user=" + encodeURIComponent(gmail);
+        }
+    </script>
+</body>
+</html>
