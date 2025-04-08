@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NyaFi Cloud | Майнинг</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>NyaFi Cloud ⛏️</h1>
+        <div class="wallet-info">
+            <span id="walletDisplay"></span>
+            <span id="balance">0.00 SOL</span>
+        </div>
+        
+        <div class="mining-stats">
+            <div class="stat-card">
+                <h3>Хешрейт</h3>
+                <p id="hashrate">0 H/s</p>
+            </div>
+            <div class="stat-card">
+                <h3>Заработано</h3>
+                <p id="earned">0 SOL</p>
+            </div>
+            <div class="stat-card">
+                <h3>Время работы</h3>
+                <p id="uptime">00:00:00</p>
+            </div>
+        </div>
+        
+        <button id="startMining" class="mining-btn">Запустить майнинг</button>
+        
+        <div class="referral">
+            <h3>Пригласите друзей</h3>
+            <input type="text" id="refLink" readonly>
+            <button id="copyRef">Копировать</button>
+        </div>
+    </div>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html>

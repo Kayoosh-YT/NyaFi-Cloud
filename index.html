@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NyaFi Cloud</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>NyaFi Cloud</h1>
+        <input type="text" id="walletInput" class="wallet-input" placeholder="Введите ваш Solana кошелёк">
+
+        <button id="connectWallet" class="connect-btn">
+            <span class="btn-text">Подключить кошелёк</span>
+            <span class="btn-icon">→</span>
+          </button>
+        
+        <div class="features">
+            <div>✔️ Бесплатный облачный майнинг</div>
+            <div>✔️ Альфа Безопасность</div>
+            <div>✔️ Низкая комиссия</div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+
+    <script type="module">
+        import { db, ref, set } from './firebase.js';
+        
+        document.getElementById('connectWallet').addEventListener('click', async () => {
+          const wallet = document.getElementById('walletInput').value.trim();
+          
+          if (!wallet) {
+            alert('Введите адрес кошелька!');
+            return;
+          }
+      
+          try {
+            // Сохраняем в Firebase
+            await set(ref(db, 'wallets/' + wallet), {
+              address: wallet,
+              createdAt: new Date().toISOString(),
+              balance: 0
+            });
+            
+            localStorage.setItem('solanaWallet', wallet);
+            window.location.href = 'dashboard.html';
+          } catch (error) {
+            console.error("Ошибка сохранения:", error);
+            alert('Ошибка подключения!');
+          }
+        });
+      </script>
+</body>
+</html>
