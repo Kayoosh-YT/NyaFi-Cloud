@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NYA Cloud | Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>NYA Cloud</h1>
+      <div class="wallet" id="walletDisplay"></div>
+    </header>
+
+    <main>
+      <div class="balance-card">
+        <h2>Ваш баланс</h2>
+        <div class="nya-balance" id="nyaBalance">0.000000 NYA</div>
+        <div class="usd-value" id="usdValue">≈ 0.0000 USD</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Всего добыто</h3>
+          <div class="stat-value" id="totalMined">0 NYA</div>
+        </div>
+        <div class="stat-card">
+          <h3>Время майнинга</h3>
+          <div class="stat-value" id="miningTime">00:00:00</div>
+        </div>
+      </div>
+    </main>
+    
+  <a href="earn.html" class="mining-link">
+    <button class="primary-btn">Перейти к майнингу →</button>
+  </a>
+</body>
+</html>

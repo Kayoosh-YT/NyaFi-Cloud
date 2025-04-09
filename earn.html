@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYA Cloud - Майнинг</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="earn-container">
+        <header class="earn-header">
+            <h1><a href="dashboard.html">←</a> NYA Майнинг</h1>
+            <div class="wallet-display" id="walletDisplay"></div>
+        </header>
+
+        <main class="earn-main">
+            <div class="mining-card">
+                <div class="mining-stats">
+                    <div class="stat">
+                        <span>Хешрейт</span>
+                        <span id="hashrate">0 H/s</span>
+                    </div>
+                    <div class="stat">
+                        <span>Добыто за сессию</span>
+                        <span id="sessionEarned">0 NYA</span>
+                    </div>
+                </div>
+
+                <div class="mining-controls">
+                    <button id="miningBtn" class="mining-btn">
+                        <span id="btnText">СТАРТ МАЙНИНГ</span>
+                        <div class="mining-loader" id="miningLoader"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="boost-card">
+                <h3>Ускорители</h3>
+                <div class="boosts">
+                    <div class="boost" data-power="1.5" data-price="100">
+                        <span>+50% хешрейта (100 NYA)</span>
+                        <button class="buy-btn">Купить</button>
+                    </div>
+                    <div class="boost" data-power="2" data-price="250">
+                        <span>+100% хешрейта (250 NYA)</span>
+                        <button class="buy-btn">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="notification" id="notification"></div>
+    </div>
+
+    <script src="earn.js" type="module"></script>
+</body>
+</html>

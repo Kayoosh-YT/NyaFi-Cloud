@@ -1,0 +1,611 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s;
+}
+
+.container {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in;
+}
+
+h1 {
+    color: #bb86fc;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+}
+
+.wallet-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 30px;
+    border: 2px solid #bb86fc;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+.wallet-input:focus {
+    outline: none;
+    border-color: #9c4dff;
+    box-shadow: 0 0 10px rgba(156, 77, 255, 0.5);
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    color: #bb86fc;
+    font-size: 1.1rem;
+}
+
+.features div {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(30, 30, 30, 0.7);
+    transition: transform 0.2s;
+}
+
+.features div:hover {
+    transform: translateX(5px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Стили для кнопки подключения */
+.connect-btn {
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #bb86fc 0%, #9c4dff 100%);
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(156, 77, 255, 0.3);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .connect-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(156, 77, 255, 0.4);
+  }
+  
+  .connect-btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Анимация "пульсации" при наведении */
+  .connect-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .connect-btn:hover::after {
+    opacity: 1;
+  }
+  
+  /* Иконка стрелки */
+  .btn-icon {
+    transition: transform 0.3s;
+  }
+  
+  .connect-btn:hover .btn-icon {
+    transform: translateX(3px);
+  }
+  
+  /* Эффект загрузки при клике */
+  .connect-btn.loading {
+    pointer-events: none;
+  }
+  
+  .connect-btn.loading .btn-text {
+    visibility: hidden;
+  }
+  
+  .connect-btn.loading::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: #121212;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Анимация карточек */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--mouse-y, -9999px) - 50px);
+  left: calc(var(--mouse-x, -9999px) - 50px);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(rgba(187, 134, 252, 0.2), transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+/* Кнопка майнинга */
+.mining-btn.active {
+  background: #ff4d4d;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
+
+/* Всплывающие подсказки */
+.tooltip {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  background: #1e1e1e;
+  color: #bb86fc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 100;
+  transition: transform 0.3s;
+}
+
+.tooltip.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Основные стили для дашборда */
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.stat-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #bb86fc33;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  color: #bb86fc;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.mining-active {
+  background: #ff4d4d !important;
+  animation: pulse 1.5s infinite;
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e1e;
+  color: #bb86fc;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
+
+/* Основные стили для дашборда */
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.stat-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #bb86fc33;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  color: #bb86fc;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.mining-active {
+  background: #ff4d4d !important;
+  animation: pulse 1.5s infinite;
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e1e;
+  color: #bb86fc;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
+
+/* Dashboard Specific */
+.dashboard-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wallet {
+  background: #1e1e1e;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-family: monospace;
+}
+
+.balance-card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 1px solid #bb86fc33;
+}
+
+.nya-balance {
+  font-size: 2.2rem;
+  color: #bb86fc;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.usd-value {
+  opacity: 0.8;
+  font-size: 1.2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stat-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  color: #bb86fc;
+  margin-top: 5px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 16px;
+  background: #bb86fc;
+  color: #121212;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.primary-btn:hover {
+  background: #9c4dff;
+  transform: translateY(-2px);
+}
+
+/* Earn Page Styles */
+.earn-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.earn-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.earn-header h1 a {
+  color: #bb86fc;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.wallet-display {
+  background: #1e1e1e;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-family: monospace;
+}
+
+.mining-card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #bb86fc33;
+}
+
+.mining-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mining-stats .stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.mining-stats .stat span:first-child {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.mining-btn {
+  width: 100%;
+  padding: 16px;
+  background: #bb86fc;
+  color: #121212;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.mining-btn:hover {
+  background: #9c4dff;
+}
+
+.mining-btn.active {
+  background: #ff4d4d;
+}
+
+.mining-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #121212;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mining-btn.loading .mining-loader {
+  opacity: 1;
+}
+
+.mining-btn.loading #btnText {
+  opacity: 0;
+}
+
+.boost-card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #bb86fc33;
+}
+
+.boosts {
+  margin-top: 15px;
+}
+
+.boost {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #bb86fc15;
+}
+
+.buy-btn {
+  background: #bb86fc;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.buy-btn:hover {
+  background: #9c4dff;
+}
+
+.notification {
+  position: fixed;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e1e;
+  color: #bb86fc;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: bottom 0.3s;
+}
+
+.notification.show {
+  bottom: 20px;
+}
+
+/* Стили для кнопки перехода */
+.mining-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  margin-top: 30px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 16px;
+  background: #bb86fc;
+  color: #121212;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary-btn:hover {
+  background: #9c4dff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(156, 77, 255, 0.4);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+/* Таймер */
+.timer {
+  font-size: 2rem;
+  font-family: monospace;
+  color: #bb86fc;
+  margin: 20px 0;
+}
+
+/* Кнопка майнинга */
+.mining-btn {
+  background: #bb86fc;
+  color: #121212;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.mining-btn.active {
+  background: #ff4d4d;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
